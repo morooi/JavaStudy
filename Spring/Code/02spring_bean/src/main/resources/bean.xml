@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 把对象的创建交给 spring 来管理 -->
+    <!-- spring 对 bean 的管理细节
+        1. 创建 bean 的三种方式
+        2. bean 对象的作用范围
+        3. bean 对象的声明周期-->
+
+    <!-- 创建 bean 的三种方式 -->
+    <!-- 1. 使用默认构造函数创建
+            使用 bean 标签, 配置 id 和 class 属性, 且没有其他属性和标签时, 采用的就是默认的无参构造函数创建 bean 对象.
+            如果没有此构造函数, 则对象无法创建-->
+<!--    <bean id="accountService" class="cn.morooi.service.impl.AccountServiceImpl"/>-->
+
+    <!-- 2. 使用普通工厂中的方法创建对象(使用某个类中的方法创建对象, 并存入 spring 容器)
+       -->
+<!--    <bean id="instanceFactory" class="cn.morooi.factory.InstanceFactory"/>-->
+<!--    <bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService"/>-->
+
+    <!-- 3. 使用工厂中的静态方法创建对象(使用某个类中的静态方法创建对象, 并存入 spring 容器) -->
+<!--    <bean id="accountService" class="cn.morooi.factory.StaticFactory" factory-method="getAccountService"/>-->
+
+    <bean id="accountService" class="cn.morooi.service.impl.AccountServiceImpl" init-method="init" destroy-method="destory"/>
+</beans>

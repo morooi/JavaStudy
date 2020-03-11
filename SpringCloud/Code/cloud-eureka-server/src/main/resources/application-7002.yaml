@@ -1,0 +1,11 @@
+server:
+  port: 7002
+
+eureka:
+  instance:
+    hostname: erueka7002.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://erueka7001.com:7001/eureka/

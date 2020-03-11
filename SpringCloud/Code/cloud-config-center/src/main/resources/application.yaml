@@ -1,0 +1,29 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:morooi/cloud-config.git
+  rabbitmq:
+    host: 192.168.66.3
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://erueka7001.com:7001/eureka/, http://erueka7002.com:7002/eureka/
+  instance:
+    instance-id: cloud-config-center
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"

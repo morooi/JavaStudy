@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.morooi.dao.UserDao">
+
+    <!-- 定义 User 的 resultMap -->
+    <resultMap id="userAccountMap" type="user">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="address" column="address"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <!-- 配置 User 对象中 accounts 集合的映射 -->
+        <collection property="accounts" column="id" ofType="account" select="cn.morooi.dao.AccountDao.findAccountByUid"/>
+    </resultMap>
+
+    <!-- 配置"查询所有" -->
+    <select id="findAll" resultMap="userAccountMap">
+        SELECT u.*,
+               a.ID    aid,
+               a.MONEY money
+        FROM user u
+                 LEFT OUTER JOIN account a on u.id = a.UID
+    </select>
+
+    <select id="findById" parameterType="integer" resultType="user">
+        SELECT *
+        FROM user
+        WHERE id = #{id}
+    </select>
+</mapper>

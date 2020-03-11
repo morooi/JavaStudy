@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "server-url.nacos-user-service",
+      "type": "java.lang.String",
+      "description": "Description for server-url.nacos-user-service."
+  }
+] }
