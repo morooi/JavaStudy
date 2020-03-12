@@ -2,7 +2,7 @@
  * Copyright (c) 2020
  * @Author: morooi
  * @Email: morooiu@gmail.com
- * @LastModified: 2020-03-11 22:37 CST
+ * @LastModified: 2020-03-12 17:45 CST
  */
 
 package cn.morooi.reflectionDemo.demo;
@@ -44,5 +44,18 @@ public class Human extends Creature<String> implements Comparable<String>, MyInt
     @Override
     public void info() {
         System.out.println("我是一个人");
+    }
+
+    private static void showDesc() {
+        System.out.println("我是一个可爱的人");
+    }
+
+    @Override
+    public String toString() {
+        return "Human{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", id=" + id +
+                '}';
     }
 }

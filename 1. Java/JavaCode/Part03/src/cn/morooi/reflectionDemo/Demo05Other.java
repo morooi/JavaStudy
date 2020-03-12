@@ -2,7 +2,7 @@
  * Copyright (c) 2020
  * @Author: morooi
  * @Email: morooiu@gmail.com
- * @LastModified: 2020-03-11 23:30 CST
+ * @LastModified: 2020-03-12 16:55 CST
  */
 
 package cn.morooi.reflectionDemo;
@@ -10,6 +10,7 @@ package cn.morooi.reflectionDemo;
 import cn.morooi.reflectionDemo.demo.Human;
 import org.junit.jupiter.api.Test;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -67,4 +68,46 @@ public class Demo05Other {
 //        System.out.println(actualTypeArguments[0].getTypeName());
         System.out.println(((Class<?>)actualTypeArguments[0]).getName());
     }
+
+    /*
+     * 获取运行时类实现的接口
+     * */
+    @Test
+    public void test05() {
+        Class<Human> humanClass = Human.class;
+        Class<?>[] interfaces = humanClass.getInterfaces();
+        for (Class<?> anInterface : interfaces) {
+            System.out.println(anInterface);
+        }
+
+        // 获取运行时类的父类实现的接口
+        Class<?>[] interfaces1 = humanClass.getSuperclass().getInterfaces();
+        for (Class<?> aClass : interfaces1) {
+            System.out.println(aClass);
+        }
+    }
+
+    /*
+     * 获取运行时类所在的包
+     * */
+    @Test
+    public void test06() {
+        Class<Human> humanClass = Human.class;
+        Package humanClassPackage = humanClass.getPackage();
+        System.out.println(humanClassPackage);
+    }
+
+    /*
+     * 获取运行时类声明的注解
+     * */
+    @Test
+    public void test07() {
+        Class<Human> humanClass = Human.class;
+        Annotation[] annotations = humanClass.getAnnotations();
+        for (Annotation annotation : annotations) {
+            System.out.println(annotation);
+        }
+    }
+
+
 }
