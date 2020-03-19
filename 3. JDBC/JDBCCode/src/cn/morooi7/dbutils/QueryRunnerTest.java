@@ -48,6 +48,7 @@ public class QueryRunnerTest {
             JDBCUtils.closeResources(conn, null);
         }
     }
+
     // 测试查询(多条记录)
     // BeanListHandler()
     @Test

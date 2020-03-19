@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!-- context-param 是上下文参数, 属于整个 web 工程 -->
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>morooi</param-value>
+    </context-param>
+    <listener>
+        <listener-class>cn.morooi.servlet.Demo08Listener</listener-class>
+    </listener>
+    <!-- servlet 标签给 tomcat 配置 Servlet 程序 -->
+    <servlet>
+        <!-- servlet-name 标签给 Servlet 程序起一个别名(一般是类名) -->
+        <servlet-name>demo01helloMyServlet</servlet-name>
+        <!-- servlet-class 标签是 Servlet 程序的全类名 -->
+        <servlet-class>cn.morooi.servlet.Demo01HelloMyServlet</servlet-class>
+        <init-param>
+            <param-name>username</param-name>
+            <param-value>root</param-value>
+        </init-param>
+        <init-param>
+            <param-name>url</param-name>
+            <param-value>jdbc:mysql://hocalhost:3306/test</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>demo02HelloMyServlet</servlet-name>
+        <servlet-class>cn.morooi.servlet.Demo02HelloMyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Demo03ServletContext</servlet-name>
+        <servlet-class>cn.morooi.servlet.Demo03ServletContext</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Demo04HttpServletRequest</servlet-name>
+        <servlet-class>cn.morooi.servlet.Demo04HttpServletRequest</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Demo05HttpServletRequest</servlet-name>
+        <servlet-class>cn.morooi.servlet.Demo05HttpServletRequest</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Demo06HttpServletResponse</servlet-name>
+        <servlet-class>cn.morooi.servlet.Demo06HttpServletResponse</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Demo07Redirect</servlet-name>
+        <servlet-class>cn.morooi.servlet.Demo07Redirect</servlet-class>
+    </servlet>
+
+    <!--servlet-mapping 标签给 Servlet 程序配置访问地址-->
+    <servlet-mapping>
+        <servlet-name>demo01helloMyServlet</servlet-name>
+        <url-pattern>/hello01</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>demo02HelloMyServlet</servlet-name>
+        <url-pattern>/hello02</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Demo03ServletContext</servlet-name>
+        <url-pattern>/servletContext</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Demo04HttpServletRequest</servlet-name>
+        <url-pattern>/httpServletRequest1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Demo05HttpServletRequest</servlet-name>
+        <url-pattern>/httpServletRequest2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Demo06HttpServletResponse</servlet-name>
+        <url-pattern>/httpServletResponse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Demo07Redirect</servlet-name>
+        <url-pattern>/redirect</url-pattern>
+    </servlet-mapping>
+</web-app>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>获取请求参数</title>
+</head>
+<body>
+<form action="httpServletRequest1" method="post">
+    <table>
+        <tr>
+            <td><label for="username">用户名: </label></td>
+            <td><input type="text" name="username" id="username"></td>
+        </tr>
+        <tr>
+            <td><label for="password">密码: </label></td>
+            <td><input type="password" name="password" id="password"></td>
+        </tr>
+        <tr>
+            <td>兴趣爱好:</td>
+            <td>
+                <label for="cpp"><input type="checkbox" name="hobby" value="cpp" id="cpp">C++</label>
+                <label for="java"><input type="checkbox" name="hobby" value="java" id="java">Java</label>
+                <label for="python"><input type="checkbox" name="hobby" value="python" id="python">Python</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">提交</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
