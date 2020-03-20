@@ -9,6 +9,15 @@
         <param-name>username</param-name>
         <param-value>morooi</param-value>
     </context-param>
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>cn.morooi.servlet.Demo09AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <!-- 配置拦截路径 -->
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
     <listener>
         <listener-class>cn.morooi.servlet.Demo08Listener</listener-class>
     </listener>
@@ -52,6 +61,10 @@
         <servlet-name>Demo07Redirect</servlet-name>
         <servlet-class>cn.morooi.servlet.Demo07Redirect</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Demo10AjaxServlet</servlet-name>
+        <servlet-class>cn.morooi.servlet.Demo10AjaxServlet</servlet-class>
+    </servlet>
 
     <!--servlet-mapping 标签给 Servlet 程序配置访问地址-->
     <servlet-mapping>
@@ -81,5 +94,9 @@
     <servlet-mapping>
         <servlet-name>Demo07Redirect</servlet-name>
         <url-pattern>/redirect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Demo10AjaxServlet</servlet-name>
+        <url-pattern>/ajaxServlet</url-pattern>
     </servlet-mapping>
 </web-app>
