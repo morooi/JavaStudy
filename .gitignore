@@ -53,7 +53,6 @@ Temporary Items
 .apdisk
 
 面试
-Software
 
 # 视频
 *.avi
@@ -64,9 +63,7 @@ Software
 .idea/
 out/
 lib/
-1. Java/Java高级
+target/
 1. Java/Book
 4. JavaWeb/资料
-5. Spring/视频及资料
-5. MyBatis/资料
-6. Spring/Videos
+8. SpringBoot/Videos

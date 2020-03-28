@@ -1,0 +1,3 @@
+[submodule "AlgorithmPractice"]
+	path = AlgorithmPractice
+	url = git@github.com:morooi/AlgorithmPractice.git

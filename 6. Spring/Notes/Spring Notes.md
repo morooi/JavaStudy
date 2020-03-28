@@ -460,3 +460,180 @@ XML 的约束：
 
 注：当使用 Spring 5.x 版本的时候，要求 Junit 的 jar 包必须是 4.12 及以上
 
+## AOP
+
+### 基于 XML 的配置
+
+Spring 中基于 XML 的 AOP 配置步骤
+
+1. 把通知 Bean 也交给 Spring 管理
+
+2. 使用 aop:config 标签表明开始 AOP 的配置
+
+3. 使用 aop:aspect 标签表明配置切面
+
+   id 属性：给切面提供一个唯一标识
+
+   ref 属性：指定通知类 bean 的 id
+
+4. 在 aop:aspect 标签的内部使用对象标签来配置通知的类型
+
+   aop:before：表示配置前置通知
+
+   ​	method 属性：用于指定 Logger 类中哪个方法是前置通知
+
+   ​	pointcut 属性：用于指定切入点表达式，该表达式的含义指的是业务层中哪些方法增强
+   
+   后置通知和异常通知永远只会执行一个
+
+``` xml
+<!-- 开始配置 AOP -->
+<aop:config>
+  <!-- 配置切面 -->
+  <aop:aspect id="logAdvice" ref="logger">
+    <!-- 配置通知的类型, 且建立通知方法和切入点方法的关联 -->
+    <!-- 前置通知: 在切入点方法执行之前执行 -->
+    <aop:before method="beforePrintLog" pointcut="execution(* cn.morooi.service.impl.*.*(..))"/>
+
+    <!-- 后置通知: 在切入点方法执行之后执行 -->
+    <aop:after-returning method="afterReturningPrintLog" pointcut-ref="ptl"/>
+
+    <!-- 异常通知: 在切入点方法产生异常之后执行 -->
+    <aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="ptl"/>
+
+    <!-- 最终通知: 最终总会执行 -->
+    <aop:after method="afterPrintLog" pointcut-ref="ptl"/>
+    
+    <!-- 配置切入点表达式: id 属性用于指定表达式的唯一标识; expression 属性指定表达式内容 -->
+    <aop:pointcut id="ptl" expression="execution(* cn.morooi.service.impl.*.*(..))"/>
+  </aop:aspect>
+</aop:config>
+```
+
+### 环绕通知
+
+它是 Spring 框架为我们提供的一种可以在代码中手动控制增强方法何时执行的方式
+
+当配置了环绕通知之后，切入点方法没有执行，而通知方法执行了
+
+解决：
+
+Spring 框架提供了一个接口：ProceedingJoinPoint。该接口有一个方法 proceed()，此方法相当于明确调用切入点方法。该接口可以作为环绕通知的方法参数，在程序执行时，Spring 框架会为我们提供该接口的实现类
+
+``` java
+/**
+ * 环绕通知
+ */
+public Object aroundPrintLog(ProceedingJoinPoint pjd) {
+  Object returnValue = null;
+  try {
+    System.out.println("Logger 类中的 aroundPrintLog 方法开始记录日志了...前置");
+    Object[] args = pjd.getArgs(); // 得到方法执行所需的参数
+    returnValue = pjd.proceed(); // 明确调用业务层方法(切入点方法)
+    System.out.println("Logger 类中的 aroundPrintLog 方法开始记录日志了...后置");
+  } catch (Throwable throwable) {
+    System.out.println("Logger 类中的 aroundPrintLog 方法开始记录日志了...异常");
+    throwable.printStackTrace();
+  } finally {
+    System.out.println("Logger 类中的 aroundPrintLog 方法开始记录日志了...最终");
+  }
+  return returnValue;
+}
+```
+
+### 切入点表达式的写法
+
+关键字：`execution(表达式)`
+
+表达式：
+
+* 标准表达式：`访问修饰符 返回值 包名.包名..包名.类名.方法名(参数列表)`
+
+  ```
+  public void cn.morooi.service.impl.AccountServiceImpl.saveAccount()
+  ```
+
+* 访问修饰符可省略：`返回值 包名.包名..包名.类名.方法名(参数列表)`
+
+  ```
+  void cn.morooi.service.impl.AccountServiceImpl.saveAccount()
+  ```
+
+* 返回值可以使用通配符表示任意返回值：`* 包名.包名..包名.类名.方法名(参数列表)`
+
+  ```
+  * cn.morooi.service.impl.AccountServiceImpl.saveAccount()
+  ```
+
+* 包名可使用通配符表示任意包，但有几级包，就需要写几个 `*.`：`* *.*..*.类名.方法名(参数列表)`
+
+  ```
+  * *.*.*.*.AccountServiceImpl.saveAccount()
+  ```
+
+* 包名可以使用 `..` 表示当前包及其子包
+
+  ```
+  * *..AccountServiceImpl.saveAccount()
+  ```
+
+* 类名和方法名都可以使用 `*` 来实现通配
+
+  ```
+  * *..*.saveAccount()
+  * *..*.*()
+  ```
+
+* 参数列表可直接写数据类型：
+
+  基本类型直接写名称
+
+  引用类型写 `包名.类名` 的方式
+
+  可以使用通配符 `*` 表示任意类型，但必须有参数
+
+  可以使用 `..` 表示有无参数均可，有参数可以是任意类型
+
+* 全通配写法：`* *..*.*(...)`
+
+### 实际开发中切入点表达式的通常写法
+
+切到业务层实现类下的所有方法
+
+```
+* cn.morooi.service.impl.*.*(..)
+```
+
+## Spring 中基于 XML 的声明式事务控制
+
+配置步骤：
+
+1. 配置事务管理器
+
+2. 配置事务的通知（需要导入事务的约束）
+
+3. 配置 AOP 中的通用切入点表达式
+
+4. 建立事务通知和切入点表达式的对应关系
+
+5. 配置事务的属性，在事务的通知 `tx:advice` 标签内部
+
+   `isolation`：指定事务的隔离级别。默认是 DEFAULT，表示使用数据库的默认隔离级别
+
+   `propagation`：指定事务的传播行为。默认是 REQUIRED，表示一定有事务（增删改）。查询方法可选择 SUPPORTS
+
+   `read-only`：指定事务是否只读。只有查询方法才能设置为 true，默认为 false，表示读写
+
+   `timeout`：指定事务的超时时间，默认为 -1，表示永不超时。若指定数值，以秒为单位
+
+   `rollback-for`：指定一个异常，产生该异常时，事务回滚；产生其他异常时，事务不回滚。没有默认值，表示任何异常都回滚
+
+   `no-rollback-for`：用于指定一个异常，产生该异常时，事务不回滚；产生其他异常时，事务回滚。没有默认值，表示任何异常都回滚
+
+## Spring 中基于注解的声明式事务控制
+
+1. 配置事务管理器
+2. 开启 Spring 对注解事务的支持
+3. 在需要事务支持的地方使用 `@Transactional` 注解
+
+   
