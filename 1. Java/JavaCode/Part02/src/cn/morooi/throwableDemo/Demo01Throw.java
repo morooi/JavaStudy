@@ -14,7 +14,7 @@ package cn.morooi.throwableDemo;
  * 使用格式:
  *   throw new xxxException("异常参数的原因");
  * 注意:
- *   1. throw 关键字必须卸载方法的内部
+ *   1. throw 关键字必须写在方法的内部
  *   2. throw 关键字后边 new 的对象必须是 Exception 或 Exception 的子类
  *   3. throw 关键字抛出指定的异常对象, 我们就必须处理这个异常对象 (throws 或 try...catch)
  *       如果 throw 关键字后边创建的是 RuntimeException 或者是 RuntimeException 的子类对象,

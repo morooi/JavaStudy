@@ -21,19 +21,15 @@ package cn.morooi.mapDemo;
  *
  * */
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 public class Demo05JDK9 {
     public static void main(String[] args) {
-        List<Integer> list = List.of(1, 2, 3, 4, 5);
-        System.out.println(list);
-
-        Set<Integer> set = Set.of(1, 3, 4, 5, 2);
-        System.out.println(set);
-
-        Map<String, Integer> map = Map.of("1", 22, "3", 44);
-        System.out.println(map);
+//        List<Integer> list = List.of(1, 2, 3, 4, 5);
+//        System.out.println(list);
+//
+//        Set<Integer> set = Set.of(1, 3, 4, 5, 2);
+//        System.out.println(set);
+//
+//        Map<String, Integer> map = Map.of("1", 22, "3", 44);
+//        System.out.println(map);
     }
 }
