@@ -52,18 +52,14 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-面试
-
 # 视频
 *.avi
 *.mp4
 
 # 书
-2. MySQL/资料代码
+MySQL/资料代码
 .idea/
 out/
 lib/
 target/
-1. Java/Book
-4. JavaWeb/资料
-8. SpringBoot/Videos
+Java/Book

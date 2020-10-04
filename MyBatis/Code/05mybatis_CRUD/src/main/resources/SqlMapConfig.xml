@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!-- 配置 properties
+         可以在标签内部配置连接数据库的信息, 也可以通过属性引用外部配置文件信息
+         resource 属性 (常用的): 用于指定配置文件的位置, 是按照类路径的写法来写, 并且必须存在于类路径下
+         url 属性: 要求按照 url 的写法来写地址
+         -->
+    <properties resource="jdbc.properties">
+<!--        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--        <property name="url" value="jdbc:mysql://10.211.55.6:3306/mybatis?useUnicode=true&amp;characterEncoding=utf8"/>-->
+<!--        <property name="username" value="mybatis"/>-->
+<!--        <property name="password" value="123456"/>-->
+    </properties>
+
+    <!-- 使用 typeAliases 配置别名, 它只能配置 domain 中类的别名  -->
+    <typeAliases>
+        <!-- typeAlias 用于配置别名, type 属性指定的是实体类全限定类名. alias 属性指定别名, 当指定了别名就不区分大小写了 -->
+<!--        <typeAlias type="cn.morooi.domain.User" alias="user"/>-->
+        <!-- package 用于指定要配置别名的包, 指定后, 该包的实体类都会注册别名, 并且类名就是别名, 不再区分大小写 -->
+        <package name="cn.morooi.domain"/>
+    </typeAliases>
+
+    <!-- 配置环境 -->
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+<!--        <mapper resource="cn/morooi/dao/UserDao.xml"/>-->
+        <!-- package 用于指定 dao 接口所在的包, 当指定了之后就不需要再写 mapper 以及 resource 或 class 了 -->
+        <package name="cn.morooi.dao"/>
+    </mappers>
+</configuration>
